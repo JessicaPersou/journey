@@ -1,16 +1,15 @@
 package com.persou.journey.employer.entities;
 
-import com.persou.journey.employer.datasources.model.DepartmentSection;
+import com.persou.journey.employer.datasources.model.enums.DepartmentSection;
 import lombok.Builder;
-import lombok.Data;
 
-@Data
 @Builder(toBuilder = true)
-public class Department {
-    private String id;
-    private String name;
-    private String description;
-    private DepartmentSection section;
-    private boolean active;
-    private Company company;
+public record Department(
+    String id,
+    String name,
+    String description,
+    DepartmentSection section,
+    boolean active,
+    Company company
+) {
 }

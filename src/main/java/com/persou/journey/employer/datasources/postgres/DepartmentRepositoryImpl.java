@@ -1,5 +1,8 @@
 package com.persou.journey.employer.datasources.postgres;
 
+import static com.persou.journey.employer.config.exception.MessagesExceptions.NOT_FOUND;
+
+import com.persou.journey.employer.config.exception.ResourceNotFoundException;
 import com.persou.journey.employer.datasources.mapper.DepartmentMapper;
 import com.persou.journey.employer.datasources.model.DepartmentModel;
 import com.persou.journey.employer.entities.Department;
@@ -18,6 +21,7 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     @Override
     public Department findById(String id) {
         Optional<DepartmentModel> entityOpt = departmentJpaRepository.findById(id);
-        return entityOpt.map(departmentMapper::toDomain).orElse(null);
+        return entityOpt.map(departmentMapper::mapToDomain)
+            .orElseThrow(() -> new ResourceNotFoundException(NOT_FOUND + id));
     }
 }

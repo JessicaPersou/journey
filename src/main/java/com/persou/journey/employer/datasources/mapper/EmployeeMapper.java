@@ -9,8 +9,11 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface EmployeeMapper {
 
-//    EmployeeResponse mapToResponse(Employee employee);
-//    EmployeeModel toCompanyEntity(Employee company);
-//    Employee toDomain(EmployeeResponse companyResponse);
-    Employee toDomain(EmployeeModel employeeModel);
+    EmployeeResponse mapToResponse(Employee domain);
+
+    EmployeeModel mapToEntity(Employee domain);
+
+    Employee mapToDomain(EmployeeResponse response);
+
+    Employee mapToDomain(EmployeeModel model);
 }

@@ -23,14 +23,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/company")
 public class CompanyApi {
 
-    private final FindCompanyUseCase companyUseCase;
+    private final FindCompanyUseCase findCompanyUseCase;
     private final RegisterCompanyUseCase registerCompanyUseCase;
     private final CompanyMapper companyMapper;
 
     @GetMapping("/{id}")
     @ResponseStatus(OK)
     public CompanyResponse findById(@PathVariable String id) {
-        Company company = companyUseCase.findById(id);
+        Company company = findCompanyUseCase.findById(id);
         return companyMapper.mapToResponse(company);
     }
 

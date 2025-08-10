@@ -1,6 +1,6 @@
 package com.persou.journey.employer.transportlayers.request;
 
-import com.persou.journey.employer.datasources.model.DepartmentSection;
+import com.persou.journey.employer.datasources.model.enums.DepartmentSection;
 import lombok.Builder;
 
 @Builder(toBuilder = true)

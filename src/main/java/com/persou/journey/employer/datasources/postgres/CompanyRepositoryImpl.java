@@ -1,8 +1,11 @@
 package com.persou.journey.employer.datasources.postgres;
 
+import static com.persou.journey.employer.config.exception.MessagesExceptions.NOT_FOUND;
+
+import com.persou.journey.employer.config.exception.ResourceNotFoundException;
 import com.persou.journey.employer.datasources.mapper.CompanyMapper;
-import com.persou.journey.employer.entities.Company;
 import com.persou.journey.employer.datasources.model.CompanyModel;
+import com.persou.journey.employer.entities.Company;
 import com.persou.journey.employer.repositories.CompanyRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -17,13 +20,14 @@ public class CompanyRepositoryImpl implements CompanyRepository {
     @Override
     public Company findById(String id) {
         Optional<CompanyModel> entityOpt = companyJpaRepository.findById(id);
-        return entityOpt.map(companyMapper::toDomain).orElse(null);
+        return entityOpt.map(companyMapper::mapToDomain).orElseThrow(() ->
+            new ResourceNotFoundException(NOT_FOUND + id));
     }
 
     @Override
     public Company create(Company company) {
         CompanyModel modelToSave = companyJpaRepository.save(companyMapper.mapToEntity(company));
-        return companyMapper.toDomain(modelToSave);
+        return companyMapper.mapToDomain(modelToSave);
     }
 
 

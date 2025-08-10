@@ -72,7 +72,7 @@ public class CompanyMapperImpl implements CompanyMapper {
     }
 
     @Override
-    public Company toDomain(CompanyModel model) {
+    public Company mapToDomain(CompanyModel model) {
         if ( model == null ) {
             return null;
         }

@@ -10,8 +10,11 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface CompanyMapper {
 
-    CompanyResponse mapToResponse(Company company);
+    CompanyResponse mapToResponse(Company domain);
+
     Company mapToDomain(CompanyRequest request);
-    CompanyModel mapToEntity(Company company);
-    Company toDomain(CompanyModel model);
+
+    CompanyModel mapToEntity(Company domain);
+
+    Company mapToDomain(CompanyModel model);
 }

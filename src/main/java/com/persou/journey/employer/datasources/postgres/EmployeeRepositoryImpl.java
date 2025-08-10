@@ -1,5 +1,8 @@
 package com.persou.journey.employer.datasources.postgres;
 
+import static com.persou.journey.employer.config.exception.MessagesExceptions.NOT_FOUND;
+
+import com.persou.journey.employer.config.exception.ResourceNotFoundException;
 import com.persou.journey.employer.datasources.mapper.EmployeeMapper;
 import com.persou.journey.employer.datasources.model.EmployeeModel;
 import com.persou.journey.employer.entities.Employee;
@@ -17,7 +20,8 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     @Override
     public Employee findById(String id) {
         Optional<EmployeeModel> entityOpt = employeeJpaRepository.findById(id);
-        return entityOpt.map(employeeMapper::toDomain).orElse(null);
+        return entityOpt.map(employeeMapper::mapToDomain).orElseThrow(() ->
+            new ResourceNotFoundException(NOT_FOUND + id));
     }
 
 }

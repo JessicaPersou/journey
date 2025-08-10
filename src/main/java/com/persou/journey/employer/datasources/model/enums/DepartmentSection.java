@@ -1,4 +1,4 @@
-package com.persou.journey.employer.datasources.model;
+package com.persou.journey.employer.datasources.model.enums;
 
 public enum DepartmentSection {
     ADMINISTRATION("Administrativo"),
