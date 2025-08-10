@@ -1,0 +1,23 @@
+package com.persou.journey.employer.datasources.postgres;
+
+import com.persou.journey.employer.datasources.mapper.DepartmentMapper;
+import com.persou.journey.employer.datasources.model.DepartmentModel;
+import com.persou.journey.employer.entities.Department;
+import com.persou.journey.employer.repositories.DepartmentRepository;
+import java.util.Optional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
+
+@Repository
+@RequiredArgsConstructor
+public class DepartmentRepositoryImpl implements DepartmentRepository {
+
+    private final DepartmentJpaRepository departmentJpaRepository;
+    private final DepartmentMapper departmentMapper;
+
+    @Override
+    public Department findById(String id) {
+        Optional<DepartmentModel> entityOpt = departmentJpaRepository.findById(id);
+        return entityOpt.map(departmentMapper::toDomain).orElse(null);
+    }
+}

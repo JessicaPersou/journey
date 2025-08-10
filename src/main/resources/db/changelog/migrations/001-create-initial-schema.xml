@@ -1,0 +1,84 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="001-create-initial-schema" author="jessica-persou">
+        <createTable tableName="company">
+            <column name="id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cnpj" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="fantasy_name" type="varchar(255)"/>
+            <!-- Campos do Address (Embedded) -->
+            <column name="street" type="varchar(255)"/>
+            <column name="number" type="varchar(50)"/>
+            <column name="city" type="varchar(100)"/>
+            <column name="state" type="varchar(100)"/>
+            <column name="country" type="varchar(100)"/>
+            <column name="neighborhood" type="varchar(100)"/>
+            <column name="zipcode" type="varchar(20)"/>
+            <column name="phone" type="varchar(20)"/>
+            <column name="email" type="varchar(255)"/>
+        </createTable>
+
+        <createTable tableName="department">
+            <column name="id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="description" type="varchar(255)"/>
+            <column name="section" type="varchar(100)"/>
+            <column name="active" type="boolean"/>
+            <column name="company_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="department"
+                                 baseColumnNames="company_id"
+                                 referencedTableName="company"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_department_company"/>
+
+        <createTable tableName="employee">
+            <column name="id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="birthdate" type="date"/>
+            <column name="cpf" type="varchar(255)">
+                <constraints unique="true"/>
+            </column>
+            <column name="phone" type="varchar(50)"/>
+            <column name="street" type="varchar(255)"/>
+            <column name="number" type="varchar(50)"/>
+            <column name="city" type="varchar(100)"/>
+            <column name="state" type="varchar(100)"/>
+            <column name="country" type="varchar(100)"/>
+            <column name="neighborhood" type="varchar(100)"/>
+            <column name="zipcode" type="varchar(20)"/>
+            <column name="email" type="varchar(255)"/>
+            <column name="salary" type="decimal(19,2)"/>
+            <column name="position" type="varchar(255)"/>
+            <column name="department_id" type="varchar(255)"/>
+            <column name="company_id" type="varchar(255)"/>
+
+        </createTable>
+        <addForeignKeyConstraint baseTableName="employee"
+                                 baseColumnNames="department_id"
+                                 referencedTableName="department"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_employee_department"/>
+        <addForeignKeyConstraint baseTableName="employee"
+                                 baseColumnNames="company_id"
+                                 referencedTableName="company"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_employee_company"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: journey
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 30000
+      pool-name: HikariPool
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    enabled: true
+    url: jdbc:postgresql://localhost:5432/db
+    user: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
