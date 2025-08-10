@@ -1,6 +1,6 @@
 package com.persou.journey.employer.datasources.model;
 
-import com.persou.journey.employer.datasources.model.enums.DepartmentSection;
+import com.persou.journey.employer.entities.enums.DepartmentSection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

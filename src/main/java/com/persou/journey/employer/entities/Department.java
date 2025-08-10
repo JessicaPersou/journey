@@ -1,6 +1,6 @@
 package com.persou.journey.employer.entities;
 
-import com.persou.journey.employer.datasources.model.enums.DepartmentSection;
+import com.persou.journey.employer.entities.enums.DepartmentSection;
 import lombok.Builder;
 
 @Builder(toBuilder = true)

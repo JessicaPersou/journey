@@ -1,6 +1,6 @@
 package com.persou.journey.employer.datasources.model;
 
-import com.persou.journey.employer.datasources.model.enums.Position;
+import com.persou.journey.employer.entities.enums.Position;
 import com.persou.journey.employer.datasources.model.valueObject.Address;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;

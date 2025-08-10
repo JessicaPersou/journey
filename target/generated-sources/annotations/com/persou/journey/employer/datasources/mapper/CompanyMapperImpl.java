@@ -12,26 +12,26 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-08-10T00:53:07-0300",
+    date = "2025-08-10T15:59:48-0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.5 (Amazon.com Inc.)"
 )
 @Component
 public class CompanyMapperImpl implements CompanyMapper {
 
     @Override
-    public CompanyResponse mapToResponse(Company company) {
-        if ( company == null ) {
+    public CompanyResponse mapToResponse(Company domain) {
+        if ( domain == null ) {
             return null;
         }
 
         CompanyResponse.CompanyResponseBuilder companyResponse = CompanyResponse.builder();
 
-        companyResponse.id( company.getId() );
-        companyResponse.name( company.getName() );
-        companyResponse.cnpj( company.getCnpj() );
-        companyResponse.address( addressToAddressResponse( company.getAddress() ) );
-        companyResponse.phone( company.getPhone() );
-        companyResponse.email( company.getEmail() );
+        companyResponse.id( domain.id() );
+        companyResponse.name( domain.name() );
+        companyResponse.cnpj( domain.cnpj() );
+        companyResponse.address( addressToAddressResponse( domain.address() ) );
+        companyResponse.phone( domain.phone() );
+        companyResponse.email( domain.email() );
 
         return companyResponse.build();
     }
@@ -54,19 +54,19 @@ public class CompanyMapperImpl implements CompanyMapper {
     }
 
     @Override
-    public CompanyModel mapToEntity(Company company) {
-        if ( company == null ) {
+    public CompanyModel mapToEntity(Company domain) {
+        if ( domain == null ) {
             return null;
         }
 
         CompanyModel companyModel = new CompanyModel();
 
-        companyModel.setId( company.getId() );
-        companyModel.setName( company.getName() );
-        companyModel.setCnpj( company.getCnpj() );
-        companyModel.setAddress( addressToAddress( company.getAddress() ) );
-        companyModel.setPhone( company.getPhone() );
-        companyModel.setEmail( company.getEmail() );
+        companyModel.setId( domain.id() );
+        companyModel.setName( domain.name() );
+        companyModel.setCnpj( domain.cnpj() );
+        companyModel.setAddress( addressToAddress( domain.address() ) );
+        companyModel.setPhone( domain.phone() );
+        companyModel.setEmail( domain.email() );
 
         return companyModel;
     }
@@ -96,13 +96,13 @@ public class CompanyMapperImpl implements CompanyMapper {
 
         AddressResponse.AddressResponseBuilder addressResponse = AddressResponse.builder();
 
-        addressResponse.street( address.getStreet() );
-        addressResponse.number( address.getNumber() );
-        addressResponse.neighborhood( address.getNeighborhood() );
-        addressResponse.zipcode( address.getZipcode() );
-        addressResponse.city( address.getCity() );
-        addressResponse.state( address.getState() );
-        addressResponse.country( address.getCountry() );
+        addressResponse.street( address.street() );
+        addressResponse.number( address.number() );
+        addressResponse.neighborhood( address.neighborhood() );
+        addressResponse.zipcode( address.zipcode() );
+        addressResponse.city( address.city() );
+        addressResponse.state( address.state() );
+        addressResponse.country( address.country() );
 
         return addressResponse.build();
     }
@@ -132,13 +132,13 @@ public class CompanyMapperImpl implements CompanyMapper {
 
         com.persou.journey.employer.datasources.model.valueObject.Address address1 = new com.persou.journey.employer.datasources.model.valueObject.Address();
 
-        address1.setStreet( address.getStreet() );
-        address1.setNumber( address.getNumber() );
-        address1.setNeighborhood( address.getNeighborhood() );
-        address1.setZipcode( address.getZipcode() );
-        address1.setCity( address.getCity() );
-        address1.setState( address.getState() );
-        address1.setCountry( address.getCountry() );
+        address1.setStreet( address.street() );
+        address1.setNumber( address.number() );
+        address1.setNeighborhood( address.neighborhood() );
+        address1.setZipcode( address.zipcode() );
+        address1.setCity( address.city() );
+        address1.setState( address.state() );
+        address1.setCountry( address.country() );
 
         return address1;
     }
