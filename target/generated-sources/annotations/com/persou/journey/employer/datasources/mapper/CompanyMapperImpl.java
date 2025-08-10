@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-08-10T15:59:48-0300",
+    date = "2025-08-10T18:03:04-0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.5 (Amazon.com Inc.)"
 )
 @Component
@@ -59,16 +59,16 @@ public class CompanyMapperImpl implements CompanyMapper {
             return null;
         }
 
-        CompanyModel companyModel = new CompanyModel();
+        CompanyModel.CompanyModelBuilder companyModel = CompanyModel.builder();
 
-        companyModel.setId( domain.id() );
-        companyModel.setName( domain.name() );
-        companyModel.setCnpj( domain.cnpj() );
-        companyModel.setAddress( addressToAddress( domain.address() ) );
-        companyModel.setPhone( domain.phone() );
-        companyModel.setEmail( domain.email() );
+        companyModel.id( domain.id() );
+        companyModel.name( domain.name() );
+        companyModel.cnpj( domain.cnpj() );
+        companyModel.address( addressToAddress( domain.address() ) );
+        companyModel.phone( domain.phone() );
+        companyModel.email( domain.email() );
 
-        return companyModel;
+        return companyModel.build();
     }
 
     @Override
@@ -130,17 +130,17 @@ public class CompanyMapperImpl implements CompanyMapper {
             return null;
         }
 
-        com.persou.journey.employer.datasources.model.valueObject.Address address1 = new com.persou.journey.employer.datasources.model.valueObject.Address();
+        com.persou.journey.employer.datasources.model.valueObject.Address.AddressBuilder address1 = com.persou.journey.employer.datasources.model.valueObject.Address.builder();
 
-        address1.setStreet( address.street() );
-        address1.setNumber( address.number() );
-        address1.setNeighborhood( address.neighborhood() );
-        address1.setZipcode( address.zipcode() );
-        address1.setCity( address.city() );
-        address1.setState( address.state() );
-        address1.setCountry( address.country() );
+        address1.street( address.street() );
+        address1.number( address.number() );
+        address1.neighborhood( address.neighborhood() );
+        address1.zipcode( address.zipcode() );
+        address1.city( address.city() );
+        address1.state( address.state() );
+        address1.country( address.country() );
 
-        return address1;
+        return address1.build();
     }
 
     protected Address addressToAddress1(com.persou.journey.employer.datasources.model.valueObject.Address address) {

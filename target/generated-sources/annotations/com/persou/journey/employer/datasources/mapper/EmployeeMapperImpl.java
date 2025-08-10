@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-08-10T15:59:47-0300",
+    date = "2025-08-10T18:03:04-0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.5 (Amazon.com Inc.)"
 )
 @Component
@@ -176,17 +176,17 @@ public class EmployeeMapperImpl implements EmployeeMapper {
             return null;
         }
 
-        com.persou.journey.employer.datasources.model.valueObject.Address address1 = new com.persou.journey.employer.datasources.model.valueObject.Address();
+        com.persou.journey.employer.datasources.model.valueObject.Address.AddressBuilder address1 = com.persou.journey.employer.datasources.model.valueObject.Address.builder();
 
-        address1.setStreet( address.street() );
-        address1.setNumber( address.number() );
-        address1.setNeighborhood( address.neighborhood() );
-        address1.setZipcode( address.zipcode() );
-        address1.setCity( address.city() );
-        address1.setState( address.state() );
-        address1.setCountry( address.country() );
+        address1.street( address.street() );
+        address1.number( address.number() );
+        address1.neighborhood( address.neighborhood() );
+        address1.zipcode( address.zipcode() );
+        address1.city( address.city() );
+        address1.state( address.state() );
+        address1.country( address.country() );
 
-        return address1;
+        return address1.build();
     }
 
     protected CompanyModel companyToCompanyModel(Company company) {
@@ -194,16 +194,16 @@ public class EmployeeMapperImpl implements EmployeeMapper {
             return null;
         }
 
-        CompanyModel companyModel = new CompanyModel();
+        CompanyModel.CompanyModelBuilder companyModel = CompanyModel.builder();
 
-        companyModel.setId( company.id() );
-        companyModel.setName( company.name() );
-        companyModel.setCnpj( company.cnpj() );
-        companyModel.setAddress( addressToAddress( company.address() ) );
-        companyModel.setPhone( company.phone() );
-        companyModel.setEmail( company.email() );
+        companyModel.id( company.id() );
+        companyModel.name( company.name() );
+        companyModel.cnpj( company.cnpj() );
+        companyModel.address( addressToAddress( company.address() ) );
+        companyModel.phone( company.phone() );
+        companyModel.email( company.email() );
 
-        return companyModel;
+        return companyModel.build();
     }
 
     protected DepartmentModel departmentToDepartmentModel(Department department) {

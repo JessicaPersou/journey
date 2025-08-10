@@ -9,9 +9,9 @@ import com.persou.journey.employer.entities.Department;
 import com.persou.journey.employer.repositories.DepartmentRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
-@Repository
+@Service
 @RequiredArgsConstructor
 public class DepartmentRepositoryImpl implements DepartmentRepository {
 

@@ -9,9 +9,9 @@ import com.persou.journey.employer.entities.Employee;
 import com.persou.journey.employer.repositories.EmployeeRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
-@Repository
+@Service
 @RequiredArgsConstructor
 public class EmployeeRepositoryImpl implements EmployeeRepository {
     private final EmployeeJpaRepository employeeJpaRepository;
