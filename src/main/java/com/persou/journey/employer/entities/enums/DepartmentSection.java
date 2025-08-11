@@ -11,4 +11,9 @@ public enum DepartmentSection {
     DepartmentSection(String description) {
         this.description = description;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
 }

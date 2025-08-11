@@ -10,4 +10,8 @@ public enum Position {
     Position(String description) {
         this.description = description;
     }
+
+    public String getDescription() {
+        return description;
+    }
 }

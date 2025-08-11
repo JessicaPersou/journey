@@ -8,14 +8,17 @@ import com.persou.journey.employer.datasources.model.CompanyModel;
 import com.persou.journey.employer.entities.Company;
 import com.persou.journey.employer.repositories.CompanyRepository;
 import java.util.Optional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class CompanyRepositoryImpl implements CompanyRepository {
     private final CompanyJpaRepository companyJpaRepository;
     private final CompanyMapper companyMapper;
+
+    public CompanyRepositoryImpl(CompanyJpaRepository companyJpaRepository, CompanyMapper companyMapper) {
+        this.companyJpaRepository = companyJpaRepository;
+        this.companyMapper = companyMapper;
+    }
 
     @Override
     public Company findById(String id) {

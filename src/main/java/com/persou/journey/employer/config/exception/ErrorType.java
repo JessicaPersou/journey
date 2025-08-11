@@ -1,8 +1,6 @@
 package com.persou.journey.employer.config.exception;
 
-import lombok.Getter;
 
-@Getter
 public enum ErrorType {
 
     BUSINESS("BusinessError"),
@@ -17,4 +15,7 @@ public enum ErrorType {
         this.description = description;
     }
 
+    public String getDescription() {
+        return description;
+    }
 }

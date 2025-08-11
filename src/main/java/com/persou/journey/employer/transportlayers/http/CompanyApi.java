@@ -9,7 +9,6 @@ import com.persou.journey.employer.interactors.FindCompanyUseCase;
 import com.persou.journey.employer.interactors.RegisterCompanyUseCase;
 import com.persou.journey.employer.transportlayers.request.CompanyRequest;
 import com.persou.journey.employer.transportlayers.response.CompanyResponse;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,13 +18,20 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/company")
 public class CompanyApi {
 
     private final FindCompanyUseCase findCompanyUseCase;
     private final RegisterCompanyUseCase registerCompanyUseCase;
     private final CompanyMapper companyMapper;
+
+    public CompanyApi(FindCompanyUseCase findCompanyUseCase,
+                      RegisterCompanyUseCase registerCompanyUseCase,
+                      CompanyMapper companyMapper) {
+        this.findCompanyUseCase = findCompanyUseCase;
+        this.registerCompanyUseCase = registerCompanyUseCase;
+        this.companyMapper = companyMapper;
+    }
 
     @GetMapping("/{id}")
     @ResponseStatus(OK)

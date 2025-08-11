@@ -8,14 +8,17 @@ import com.persou.journey.employer.datasources.model.EmployeeModel;
 import com.persou.journey.employer.entities.Employee;
 import com.persou.journey.employer.repositories.EmployeeRepository;
 import java.util.Optional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class EmployeeRepositoryImpl implements EmployeeRepository {
     private final EmployeeJpaRepository employeeJpaRepository;
     private final EmployeeMapper employeeMapper;
+
+    public EmployeeRepositoryImpl(EmployeeJpaRepository employeeJpaRepository, EmployeeMapper employeeMapper) {
+        this.employeeJpaRepository = employeeJpaRepository;
+        this.employeeMapper = employeeMapper;
+    }
 
     @Override
     public Employee findById(String id) {

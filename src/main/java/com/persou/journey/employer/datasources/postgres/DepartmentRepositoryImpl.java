@@ -8,15 +8,19 @@ import com.persou.journey.employer.datasources.model.DepartmentModel;
 import com.persou.journey.employer.entities.Department;
 import com.persou.journey.employer.repositories.DepartmentRepository;
 import java.util.Optional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class DepartmentRepositoryImpl implements DepartmentRepository {
 
     private final DepartmentJpaRepository departmentJpaRepository;
     private final DepartmentMapper departmentMapper;
+
+    public DepartmentRepositoryImpl(DepartmentJpaRepository departmentJpaRepository,
+                                    DepartmentMapper departmentMapper) {
+        this.departmentJpaRepository = departmentJpaRepository;
+        this.departmentMapper = departmentMapper;
+    }
 
     @Override
     public Department findById(String id) {

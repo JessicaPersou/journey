@@ -18,21 +18,22 @@ class RegisterCompanyUseCaseTest {
 
     @Test
     void shouldRegisterCompany() {
-        Company company = Company.builder()
-            .id(UUID.randomUUID().toString())
-            .name("company")
-            .cnpj("1234567000100")
-            .phone("1198888000")
-            .email("company@email.com")
-            .address(Address.builder()
-                .street("Rua da Beleza")
-                .number("123")
-                .zipcode("01541111")
-                .neighborhood("Vila Bonita")
-                .city("São Paulo")
-                .state("SP")
-                .country("Brasil")
-                .build()).build();
+        Company company = new Company(
+            UUID.randomUUID().toString(),
+            "company",
+            "1234567000100",
+            new Address(
+                "Rua da Beleza",
+                "123",
+                "01541111",
+                "Vila Bonita",
+                "São Paulo",
+                "SP",
+                "Brasil"
+            ),
+            "1198888000",
+            "company@email.com"
+        );
 
         when(companyRepository.create(company)).thenReturn(company);
         var result = useCase.registerCompany(company);

@@ -3,10 +3,8 @@ package com.persou.journey.employer.config.exception;
 import static java.util.Collections.emptyList;
 
 import java.util.List;
-import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
-@Getter
 public class ApiException extends RuntimeException {
 
     private final HttpStatus status;
@@ -29,4 +27,15 @@ public class ApiException extends RuntimeException {
         this.details = details;
     }
 
+    public HttpStatus getStatus() {
+        return status;
+    }
+
+    public List<ValidationErrorDetail> getDetails() {
+        return details;
+    }
+
+    public ErrorType getType() {
+        return type;
+    }
 }

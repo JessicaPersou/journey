@@ -26,8 +26,8 @@ class CompanyApiTest {
     @Test
     void shouldFindCompanyById() {
         String id = "1";
-        Company company = Company.builder().id(id).name("TestCo").build();
-        CompanyResponse response = CompanyResponse.builder().id(id).name("TestCo").build();
+        Company company = mock(Company.class);
+        CompanyResponse response = mock(CompanyResponse.class);
         when(findCompanyUseCase.findById(id)).thenReturn(company);
         when(companyMapper.mapToResponse(company)).thenReturn(response);
 
@@ -51,9 +51,9 @@ class CompanyApiTest {
 
     @Test
     void shouldCreateCompanyById() {
-        CompanyRequest request = CompanyRequest.builder().name("TestCo").build();
-        Company company = Company.builder().id("1").name("TestCo").build();
-        CompanyResponse response = CompanyResponse.builder().id("1").name("TestCo").build();
+        CompanyRequest request = mock(CompanyRequest.class);
+        Company company = mock(Company.class);
+        CompanyResponse response = mock(CompanyResponse.class);
         when(companyMapper.mapToDomain(request)).thenReturn(company);
         when(registerCompanyUseCase.registerCompany(company)).thenReturn(company);
         when(companyMapper.mapToResponse(company)).thenReturn(response);
@@ -65,8 +65,8 @@ class CompanyApiTest {
 
     @Test
     void shouldThrowExceptionWhenCompanyCreationFails() {
-        CompanyRequest request = CompanyRequest.builder().name("TestCo").build();
-        Company company = Company.builder().id("1").name("TestCo").build();
+        CompanyRequest request = mock(CompanyRequest.class);
+        Company company = mock(Company.class);
         when(companyMapper.mapToDomain(request)).thenReturn(company);
         when(registerCompanyUseCase.registerCompany(company)).thenThrow(new IllegalStateException("Failed to create company"));
 
