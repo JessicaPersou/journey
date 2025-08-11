@@ -1,0 +1,7 @@
+com\persou\journey\employer\transportlayers\http\CompanyApiTest.class
+com\persou\journey\employer\datasources\postgres\DepartmentRepositoryImplTest.class
+com\persou\journey\employer\datasources\postgres\CompanyRepositoryImplTest.class
+com\persou\journey\employer\interactors\FindCompanyUseCaseTest.class
+com\persou\journey\employer\interactors\RegisterCompanyUseCaseTest.class
+com\persou\journey\archtest\ArchitectureTest.class
+com\persou\journey\employer\datasources\postgres\EmployeeRepositoryImplTest.class
