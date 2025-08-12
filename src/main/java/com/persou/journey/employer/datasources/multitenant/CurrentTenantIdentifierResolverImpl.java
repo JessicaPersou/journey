@@ -9,7 +9,7 @@ public class CurrentTenantIdentifierResolverImpl implements CurrentTenantIdentif
     @Override
     public String resolveCurrentTenantIdentifier() {
         String tenant = TenantContext.getCurrentTenant();
-        return tenant != null ? tenant : "public"; // schema default
+        return tenant != null ? tenant : "public";
     }
 
     @Override

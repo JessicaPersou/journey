@@ -5,7 +5,7 @@ services:
       - 'POSTGRES_DB=db_main'  # Alterado para db_main
       - 'POSTGRES_USER=postgres'
       - 'POSTGRES_PASSWORD=postgres'
-      - 'POSTGRES_MULTIPLE_DATABASES=tenant1_db,tenant2_db'  # Novos bancos para tenants
+      - 'POSTGRES_MULTIPLE_DATABASES=tenant1,tenant2'
       - 'POSTGRES_INITDB_ARGS=--encoding=UTF-8'
     ports:
       - '5432:5432'
@@ -30,10 +30,10 @@ services:
       --url=jdbc:postgresql://postgres:5432/db_main
       --username=postgres
       --password=postgres
-      --changeLogFile=/liquibase/changelog/db.changelog-master.xml  # Alterado para .xml
+      --changeLogFile=/liquibase/changelog/db.changelog-master.xml 
       --contexts=main
       update
-    # Script para criar schemas após migração principal
+
     entrypoint: /bin/sh -c "
       liquibase --url=jdbc:postgresql://postgres:5432/db_main
       --username=postgres

@@ -39,11 +39,6 @@ public class CompanyApi {
     @GetMapping("/{id}")
     @ResponseStatus(OK)
     public CompanyResponse findById(@PathVariable String id, @RequestHeader("X-Tenant-ID") String tenantId) {
-
-//        if (!tenantService.existsById(tenantId)) {
-//            throw new TenantNotValidException("Invalid tenant ID");
-//        }
-
         TenantContext.setCurrentTenant(tenantId);
         Company company = findCompanyUseCase.findById(id);
         return companyMapper.mapToResponse(company);

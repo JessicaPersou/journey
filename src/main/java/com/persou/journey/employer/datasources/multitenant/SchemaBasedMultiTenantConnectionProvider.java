@@ -1,6 +1,7 @@
 package com.persou.journey.employer.datasources.multitenant;
 
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -10,6 +11,7 @@ import java.sql.SQLException;
 public class SchemaBasedMultiTenantConnectionProvider
     implements MultiTenantConnectionProvider<String> {
 
+    @Autowired
     private final DataSource dataSource;
 
     public SchemaBasedMultiTenantConnectionProvider(DataSource dataSource) {
@@ -28,12 +30,8 @@ public class SchemaBasedMultiTenantConnectionProvider
 
     @Override
     public Connection getConnection(String tenantIdentifier) throws SQLException {
-        final Connection connection = getAnyConnection();
-        try {
-            connection.createStatement().execute("SET SCHEMA '" + tenantIdentifier + "'");
-        } catch (SQLException e) {
-            throw new RuntimeException("Could not alter JDBC connection to specified schema [" + tenantIdentifier + "]", e);
-        }
+        final Connection connection = dataSource.getConnection();
+        connection.setSchema(tenantIdentifier);
         return connection;
     }
 

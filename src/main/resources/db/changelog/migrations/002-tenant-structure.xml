@@ -6,7 +6,7 @@
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.19.xsd">
 
     <!-- Este changeset será aplicado em todos os schemas de tenant -->
-    <changeSet id="insert-tenant1-data" author="jessica-persou" context="tenant1">
+    <changeSet id="tenant-structure" author="jessica-persou" context="tenant">
         <createTable tableName="company">
             <column name="id" type="varchar(255)">
                 <constraints primaryKey="true" nullable="false"/>

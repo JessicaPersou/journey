@@ -1,17 +1,20 @@
 package com.persou.journey.employer.datasources.multitenant;
 
 public class TenantContext {
-    private static final ThreadLocal<String> currentTenant = new InheritableThreadLocal<>();
+    private static final ThreadLocal<String> CURRENT_TENANT = new InheritableThreadLocal<>();
 
     public static String getCurrentTenant() {
-        return currentTenant.get();
+        return CURRENT_TENANT.get();
     }
 
     public static void setCurrentTenant(String tenant) {
-        currentTenant.set(tenant);
+        if (tenant == null || tenant.isBlank()) {
+            throw new IllegalArgumentException("Tenant ID cannot be null or empty");
+        }
+        CURRENT_TENANT.set(tenant);
     }
 
     public static void clear() {
-        currentTenant.remove();
+        CURRENT_TENANT.remove();
     }
 }

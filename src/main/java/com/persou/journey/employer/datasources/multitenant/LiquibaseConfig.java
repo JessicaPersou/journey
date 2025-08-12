@@ -1,65 +1,63 @@
 package com.persou.journey.employer.datasources.multitenant;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.sql.DataSource;
+import liquibase.Contexts;
 import liquibase.Liquibase;
 import liquibase.database.Database;
 import liquibase.database.DatabaseFactory;
 import liquibase.database.jvm.JdbcConnection;
-import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import org.springframework.core.annotation.Order;
 
 @Configuration
 public class LiquibaseConfig {
 
-    private static final String[] TENANTS = {"public", "tenant1", "tenant2"};
-    private static final String MAIN_CHANGELOG = "db/changelog/db.changelog-master.xml";
-    private static final String TENANT_CHANGELOG = "db/changelog/migrations/tenant-changes.xml";
+    private static final String[] TENANTS = {"tenant1", "tenant2"};
+    private static final String CHANGELOG_MASTER = "db/changelog/db.changelog-master.xml";
 
     @Bean
-    public Boolean initializeDatabase(DataSource dataSource) throws SQLException, LiquibaseException {
-        // 1. Migração do schema public (dados globais)
-        runLiquibaseMigration(dataSource, "public", MAIN_CHANGELOG);
+    @Order(1)
+    public Liquibase publicLiquibase(DataSource dataSource) throws Exception {
+        return runLiquibaseMigration(dataSource, "public", CHANGELOG_MASTER, "main");
+    }
 
-        // 2. Migração para cada tenant
+    @Bean
+    @Order(2)
+    public Boolean tenantsLiquibase(DataSource dataSource) throws Exception {
         for (String tenant : TENANTS) {
-            if (!tenant.equals("public")) {
-                createSchemaIfNotExists(dataSource, tenant);
-                runLiquibaseMigration(dataSource, tenant, TENANT_CHANGELOG);
-            }
+            createSchemaIfNotExists(dataSource, tenant);
+            runLiquibaseMigration(dataSource, tenant, CHANGELOG_MASTER, "tenant");
         }
-
         return true;
+    }
+
+    private Liquibase runLiquibaseMigration(DataSource dataSource, String schema, String changelog, String context)
+        throws Exception {
+        Connection connection = dataSource.getConnection();
+        connection.createStatement().execute("SET SCHEMA '" + schema + "'");
+
+        Database database = DatabaseFactory.getInstance()
+            .findCorrectDatabaseImplementation(new JdbcConnection(connection));
+        database.setDefaultSchemaName(schema);
+
+        Liquibase liquibase = new Liquibase(
+            changelog,
+            new ClassLoaderResourceAccessor(),
+            database);
+
+        liquibase.update(new Contexts(context));
+        return liquibase;
     }
 
     private void createSchemaIfNotExists(DataSource dataSource, String schema) throws SQLException {
         try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement()) {
-            statement.execute("CREATE SCHEMA IF NOT EXISTS " + schema);
-        }
-    }
-
-    private void runLiquibaseMigration(DataSource dataSource, String schema, String changelog)
-        throws LiquibaseException, SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-            // Configura o schema padrão para esta migração
-            connection.createStatement().execute("SET SCHEMA '" + schema + "'");
-
-            Database database = DatabaseFactory.getInstance()
-                .findCorrectDatabaseImplementation(new JdbcConnection(connection));
-            database.setDefaultSchemaName(schema);
-            database.setLiquibaseSchemaName(schema);
-
-            Liquibase liquibase = new Liquibase(
-                changelog,
-                new ClassLoaderResourceAccessor(),
-                database);
-
-            liquibase.update("");
+             Statement stmt = connection.createStatement()) {
+            stmt.execute("CREATE SCHEMA IF NOT EXISTS " + schema);
         }
     }
 }

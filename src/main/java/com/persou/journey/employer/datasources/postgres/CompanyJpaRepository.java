@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface CompanyJpaRepository extends JpaRepository<CompanyModel, String> {
 
-   @Query("SELECT c FROM CompanyModel c WHERE c.id = :id AND c.tenantId = :tenantId")
+    @Query("SELECT c FROM CompanyModel c WHERE c.id = :id AND c.tenantId = :tenantId")
     Optional<CompanyModel> findByIdAndTenantId(String id, String tenantId);
 }

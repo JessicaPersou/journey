@@ -17,17 +17,17 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        default_schema: public  # Schema padrão
+        default_schema: ${TENANT_ID:public}  # Será sobrescrito pelo TenantContext
+        multi_tenant_connection_provider: com.persou.journey.employer.datasources.multitenant.SchemaBasedMultiTenantConnectionProvider
+        multi_tenant_identifier_resolver: com.persou.journey.employer.datasources.multitenant.CurrentTenantIdentifierResolver
 
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
     enabled: true
-    # Configuração para o banco principal
     url: jdbc:postgresql://localhost:5432/db_main
     user: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
-    # Configurações adicionais para multi-tenancy
-    contexts: main  # Contexto para migrações do schema principal
     parameters:
+      schema: public
       defaultSchemaName: public
