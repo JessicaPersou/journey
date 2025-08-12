@@ -2,15 +2,15 @@ package com.persou.journey.employer.interactors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.persou.journey.employer.entities.Address;
+import com.persou.journey.employer.datasources.multitenant.TenantContext;
 import com.persou.journey.employer.entities.Company;
 import com.persou.journey.employer.repositories.CompanyRepository;
-import java.util.UUID;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 
 class FindCompanyUseCaseTest {
 
@@ -18,32 +18,20 @@ class FindCompanyUseCaseTest {
 
     private final FindCompanyUseCase useCase = new FindCompanyUseCase(companyRepository);
 
-//    @Test
-//    void shouldFindCompany() {
-//        Company company = new Company(
-//            UUID.randomUUID().toString(),
-//            "company",
-//            "1234567000100",
-//            new Address(
-//                "Rua da Beleza",
-//                "123",
-//                "01541111",
-//                "Vila Bonita",
-//                "São Paulo",
-//                "SP",
-//                "Brasil"
-//            ),
-//            "1198888000",
-//            "company@email.com"
-//        );
-//        String tenantId = "tenant1";
-//
-//        when(companyRepository.findById(company.id(), tenantId)).thenReturn(company);
-//
-//        var result = useCase.findById(company.id());
-//
-//        assertThat(result).isEqualTo(company).isNotNull();
-//
-//        verify(companyRepository, times(1)).findById(company.id(), tenantId);
-//    }
+    @Test
+    void shouldFindCompany() {
+        String id = "empresa-123";
+        String tenantId = "tenant1";
+        Company company = mock(Company.class);
+
+        try (MockedStatic<TenantContext> tenantContextMock = mockStatic(TenantContext.class)) {
+            tenantContextMock.when(TenantContext::getCurrentTenant).thenReturn(tenantId);
+            when(companyRepository.findById(id, tenantId)).thenReturn(company);
+
+            Company resultado = useCase.findById(id);
+
+            assertThat(resultado).isEqualTo(company);
+            verify(companyRepository).findById(id, tenantId);
+        }
+    }
 }

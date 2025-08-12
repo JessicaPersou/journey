@@ -20,30 +20,31 @@ class CompanyRepositoryImplTest {
     private final CompanyRepositoryImpl companyRepositoryImpl =
         new CompanyRepositoryImpl(companyJpaRepository, companyMapper);
 
-//    @Test
-//    void shouldFindById() {
-//        String id = "company-id-123";
-//        String tenantId = "tenant1";
-//        CompanyModel model = mock(CompanyModel.class);
-//        Company company = mock(Company.class);
-//
-//        when(companyJpaRepository.findById(id)).thenReturn(Optional.of(model));
-//        when(companyMapper.mapToDomain(model)).thenReturn(company);
-//
-//        var result = companyRepositoryImpl.findById(id,tenantId);
-//        assertThat(result).isEqualTo(company);
-//
-//        verify(companyJpaRepository).findById(id);
-//        verify(companyMapper).mapToDomain(model);
-//    }
+    @Test
+    void shouldFindByIdAndTenantId() {
+        String id = "company-id-123";
+        String tenantId = "tenant1";
+        CompanyModel model = mock(CompanyModel.class);
+        Company company = mock(Company.class);
+
+        when(companyJpaRepository.findByIdAndTenantId(id, tenantId)).thenReturn(Optional.of(model));
+        when(companyMapper.mapToDomain(model)).thenReturn(company);
+
+        var result = companyRepositoryImpl.findById(id, tenantId);
+        assertThat(result).isEqualTo(company);
+
+        verify(companyJpaRepository).findByIdAndTenantId(id, tenantId);
+        verify(companyMapper).mapToDomain(model);
+    }
 
     @Test
-    void shouldThrowExceptionWhenNotFound() {
+    void shouldThrowExceptionWhenNotFoundByIdAndTenantId() {
         String id = "notfound";
         String tenantId = "tenant1";
-        when(companyJpaRepository.findById(id)).thenReturn(Optional.empty());
-        assertThrows(ResourceNotFoundException.class, () -> companyRepositoryImpl.findById(id,tenantId));
-        verify(companyJpaRepository).findById(id);
+        when(companyJpaRepository.findByIdAndTenantId(id, tenantId)).thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class, () -> companyRepositoryImpl.findById(id, tenantId));
+        verify(companyJpaRepository).findByIdAndTenantId(id, tenantId);
     }
 
     @Test
