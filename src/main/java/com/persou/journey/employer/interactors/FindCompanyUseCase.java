@@ -1,5 +1,6 @@
 package com.persou.journey.employer.interactors;
 
+import com.persou.journey.employer.datasources.multitenant.TenantContext;
 import com.persou.journey.employer.entities.Company;
 import com.persou.journey.employer.repositories.CompanyRepository;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,8 @@ public class FindCompanyUseCase {
     }
 
     public Company findById(String id) {
-        return companyRepository.findById(id);
+        String tenantId = TenantContext.getCurrentTenant();
+        return companyRepository.findById(id, tenantId);
     }
 
 }

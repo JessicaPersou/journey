@@ -4,9 +4,10 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="002-insert-sample-data" author="jessica-persou">
+    <changeSet id="insert-tenant1-data" author="jessica-persou" context="tenant1">
         <insert tableName="company">
             <column name="id" value="c1"/>
+            <column name="tenant_id" value="tenant1"/>
             <column name="name" value="Empresa Exemplo"/>
             <column name="cnpj" value="12345678000199"/>
             <column name="fantasy_name" value="Exemplo Ltda"/>

@@ -19,6 +19,8 @@ public class CompanyModel {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+    @Column(name = "tenant_id")
+    private String tenantId;
     private String name;
     @Column(unique = true)
     private String cnpj;
@@ -31,11 +33,13 @@ public class CompanyModel {
     private String phone;
     private String email;
 
-    public CompanyModel(){}
+    public CompanyModel() {
+    }
 
-    public CompanyModel(String id, String name, String cnpj, String fantasyName, Address address,
+    public CompanyModel(String id, String tenantId, String name, String cnpj, String fantasyName, Address address,
                         List<DepartmentModel> departmentList, String phone, String email) {
         this.id = id;
+        this.tenantId = tenantId;
         this.name = name;
         this.cnpj = cnpj;
         this.fantasyName = fantasyName;
@@ -51,6 +55,14 @@ public class CompanyModel {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 
     public String getName() {
@@ -113,6 +125,7 @@ public class CompanyModel {
     public String toString() {
         return "CompanyModel{" +
             "id='" + id + '\'' +
+            ", tenantId='" + tenantId + '\'' +
             ", name='" + name + '\'' +
             ", cnpj='" + cnpj + '\'' +
             ", fantasyName='" + fantasyName + '\'' +
@@ -129,15 +142,19 @@ public class CompanyModel {
             return false;
         }
         CompanyModel that = (CompanyModel) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) &&
-            Objects.equals(cnpj, that.cnpj) && Objects.equals(fantasyName, that.fantasyName) &&
+        return Objects.equals(id, that.id) &&
+            Objects.equals(tenantId, that.tenantId) &&
+            Objects.equals(name, that.name) &&
+            Objects.equals(cnpj, that.cnpj) &&
+            Objects.equals(fantasyName, that.fantasyName) &&
             Objects.equals(address, that.address) &&
-            Objects.equals(departmentList, that.departmentList) && Objects.equals(phone, that.phone) &&
+            Objects.equals(departmentList, that.departmentList) &&
+            Objects.equals(phone, that.phone) &&
             Objects.equals(email, that.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, cnpj, fantasyName, address, departmentList, phone, email);
+        return Objects.hash(id,tenantId, name, cnpj, fantasyName, address, departmentList, phone, email);
     }
 }

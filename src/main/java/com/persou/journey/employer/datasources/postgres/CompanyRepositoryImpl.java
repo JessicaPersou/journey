@@ -21,8 +21,8 @@ public class CompanyRepositoryImpl implements CompanyRepository {
     }
 
     @Override
-    public Company findById(String id) {
-        Optional<CompanyModel> entityOpt = companyJpaRepository.findById(id);
+    public Company findById(String id, String tenantId) {
+        Optional<CompanyModel> entityOpt = companyJpaRepository.findByIdAndTenantId(id, tenantId);
         return entityOpt.map(companyMapper::mapToDomain).orElseThrow(() ->
             new ResourceNotFoundException(NOT_FOUND + id));
     }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.19.xsd">
+
+    <changeSet id="create-global-tables" author="jessica-persou" context="public">
+        <createTable tableName="tenants" schemaName="public">
+            <column name="id" type="varchar(36)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="schema_name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="status" type="varchar(20)" defaultValue="ACTIVE"/>
+            <column name="created_at" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+
+        <insert tableName="tenants" schemaName="public">
+            <column name="id" value="tenant1"/>
+            <column name="name" value="Tenant 1"/>
+            <column name="schema_name" value="tenant1"/>
+        </insert>
+
+        <insert tableName="tenants" schemaName="public">
+            <column name="id" value="tenant2"/>
+            <column name="name" value="Tenant 2"/>
+            <column name="schema_name" value="tenant2"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

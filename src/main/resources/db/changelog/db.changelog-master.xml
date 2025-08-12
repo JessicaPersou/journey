@@ -3,9 +3,14 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.19.xsd">
 
-    <include file="/db/changelog/migrations/001-create-initial-schema.xml"/>
-    <include file="db/changelog/migrations/002-insert-sample-data.xml"/>
+    <!-- Tabelas globais (schema public) -->
+    <include file="/migrations/000-global-tables.xml" relativeToChangelogFile="true"/>
+
+    <!-- Estrutura comum para todos os tenants -->
+    <include file="/migrations/001-tenant-structure.xml" relativeToChangelogFile="true"/>
+
+    <!-- Dados iniciais específicos por tenant -->
+    <include file="/migrations/002-tenant-data.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
-

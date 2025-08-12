@@ -26,12 +26,13 @@ class CompanyApiTest {
     @Test
     void shouldFindCompanyById() {
         String id = "1";
+        String tenantId = "1";
         Company company = mock(Company.class);
         CompanyResponse response = mock(CompanyResponse.class);
         when(findCompanyUseCase.findById(id)).thenReturn(company);
         when(companyMapper.mapToResponse(company)).thenReturn(response);
 
-        CompanyResponse result = companyApi.findById(id);
+        CompanyResponse result = companyApi.findById(id, tenantId);
         assertThat(result).isNotNull().isEqualTo(response);
         verify(findCompanyUseCase, atLeastOnce()).findById(id);
     }
@@ -39,10 +40,11 @@ class CompanyApiTest {
     @Test
     void shouldThrowExceptionWhenCompanyNotFound() {
         String id = "999";
+        String tenantId = "1";
         when(findCompanyUseCase.findById(id)).thenThrow(new NoSuchElementException("Company not found"));
 
         try {
-            companyApi.findById(id);
+            companyApi.findById(id,tenantId);
         } catch (NoSuchElementException e) {
             assertThat(e.getMessage()).isEqualTo("Company not found");
         }

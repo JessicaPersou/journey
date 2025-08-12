@@ -2,7 +2,7 @@ spring:
   application:
     name: journey
   datasource:
-    url: jdbc:postgresql://localhost:5432/db
+    url: jdbc:postgresql://localhost:5432/db_main  # Banco principal para metadados
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -11,11 +11,23 @@ spring:
       minimum-idle: 2
       idle-timeout: 30000
       pool-name: HikariPool
+  jpa:
+    hibernate:
+      ddl-auto: none  # Desativar para usar apenas Liquibase
+    show-sql: true
+    properties:
+      hibernate:
+        default_schema: public  # Schema padrão
 
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
     enabled: true
-    url: jdbc:postgresql://localhost:5432/db
+    # Configuração para o banco principal
+    url: jdbc:postgresql://localhost:5432/db_main
     user: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
+    # Configurações adicionais para multi-tenancy
+    contexts: main  # Contexto para migrações do schema principal
+    parameters:
+      defaultSchemaName: public
