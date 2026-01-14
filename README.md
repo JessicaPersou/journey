@@ -1,3 +1,3 @@
 # Journey - Multi-tenancy
 
-Multi-tenancy in Spring Boot is an architectural approach that allows a single application instance to serve multiple clients (tenants) while logically isolating their data and configurations.
+Este é um projeto Multi-tenancy é uma abordagem arquitetural que permite que uma única instância de aplicação atenda múltiplos clientes (tenants), isolando logicamente seus dados e configurações.
